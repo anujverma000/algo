@@ -49,5 +49,3 @@ function merge(a, l, m, r){
 		j++;
 	}
 }
-
-sort(array);

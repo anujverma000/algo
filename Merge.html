@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MergeSort</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<style type="text/css">
+		#root{
+    		margin: 0 auto;
+		}
+		.sectionContainer{
+		    padding:20px;
+		}
+		.sectionLeft{
+		    float: left;
+		}
+
+		.sectionRight{
+		  float: left;
+		  margin-left: 100px;   
+		}
+
+		.element{
+		    border: 1px solid #444;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var array = [2,3,1,7,5,4,6];
+		var root = $("body");
+
+		function printArray(container, arr) {
+		    for(var i =0;i <arr.length; i++){
+		      container.appendTo("<span class='element'>"+arr[i]+"</span>");
+		    }
+		}
+		function sort(array){
+			mergeSort(array, 0, array.length);
+		}
+
+		function mergeSort(a, l , r){
+			if(l < r-1){
+				var m = Math.floor((l+r)/2);
+				mergeSort(a, l, m);
+				mergeSort(a, m, r);
+				merge(a, l, m, r);
+			}
+		}
+
+		function merge(a, l, m, r){
+			var left = new Array(m-l);
+			var right = new Array(r-m);
+
+			for(var i= 0 ; i < m-l ; i++){
+				left[i] = a[l+i];
+			}
+
+			for(var i= 0 ; i < r-m ; i++){
+				right[i] = a[m+i];
+			}
+		    var sectionContainer = root.append("<div class='sectionContainer' />");
+		    var sectionLeft = sectionContainer.append("<div class='sectionLeft'/>");
+		    var sectionRight = sectionContainer.append("<div class='sectionRight'/>");
+		    
+		    printArray(sectionLeft, left);
+		    printArray(sectionRight, right);
+		    
+			var i=0; j=0, k=l;
+			while(i < m-l && j < r-m){
+				if(left[i] <= right[j]){
+					a[k] = left[i];
+					i++;
+				}
+				else{
+					a[k] = right[j];
+					j++;
+				}
+				k++;
+			}
+			while(i < m-l){
+				a[k] = left[i];
+				k++;
+				i++;
+			}
+			while(j < r-m){
+				a[k] = right[j];
+				k++;
+				j++;
+			}
+		}
+		sort(array);
+	</script>
+</body>
+</html>
